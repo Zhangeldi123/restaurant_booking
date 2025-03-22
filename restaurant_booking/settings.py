@@ -61,8 +61,8 @@ load_dotenv()
 
 os.environ.setdefault("PGDATABASE", "railway")
 os.environ.setdefault("PGUSER", "postgres")
-os.environ.setdefault("PGPASSWORD", "QeKYesNgWXaRLlYLULQHYzFlQnaSfYZp")
-os.environ.setdefault("PGHOST", "postgres.railway.internal")
+os.environ.setdefault("PGPASSWORD", "postgres-yksm.railway.internal")
+os.environ.setdefault("PGHOST", "postgres-yksm.railway.internal")
 os.environ.setdefault("PGPORT", "5432")
 
 DATABASES = {
