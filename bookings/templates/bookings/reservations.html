@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование столика {{ table.number }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f8f8;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Выберите время для бронирования столика {{ table.number }}</h1>
+    <ul>
+        {% for slot in available_slots %}
+            <li>
+                <a href="#" onclick="bookTable({{ table.id }}, '{{ slot }}')">{{ slot }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <script>
+        async function bookTable(tableId, timeSlot) {
+            const response = await fetch('/api/reservations/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ table_id: tableId, time_slot: timeSlot })
+            });
+            if (response.ok) {
+                alert("Столик забронирован!");
+                location.reload();
+            } else {
+                const error = await response.json();
+                alert(error.detail || "Столик уже занят!");
+            }
+        }
+    </script>
+</body>
+</html>
